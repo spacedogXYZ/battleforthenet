@@ -26,6 +26,7 @@
 if (window.location.href.indexOf('cisa=1') !== -1)
     window.location.replace('https://www.obamadecides.org/?bftn=1');
 </script>
+<script type="text/javascript" src="https://mothership-js.herokuapp.com/core.min.js"></script>
 <style>
 html {
     background-color: #1b1b24;
@@ -293,6 +294,25 @@ header nav a {
     </p>
 
     <p class="form-wrapper loading padded-900 tk-proxima-nova"></p>
+    <script type="text/javascript">
+        new EmailPetitionController({
+            el: '#battle .form-wrapper',
+            page_id: 'test-fcc-complaint',
+            subject: 'Please protect net neutrality',
+
+            contactFCC: true,
+            contactCongress: false,
+            onSend: function (formData) {
+                document.getElementById('fcc_complaint').innerHTML = '<p>Thanks!</p>';
+
+                new CallModalController({
+                    campaign: 'cisa-cloture-fax',
+                    zip: formData.zip,
+                    callScript: 'Call the FCC to stop all ISP companies ever'
+                });
+            }
+        });
+    </script>
 
     <div class="team-cable-target"></div>
     <div class="team-internet-target"></div>
