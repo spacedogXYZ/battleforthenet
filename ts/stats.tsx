@@ -4,7 +4,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as ReactTransitionGroup from 'react-transition-group';
-import * as _ from 'lodash';
 import * as moment from 'moment';
 
 import {daysUntil} from './utils';
@@ -45,7 +44,7 @@ export class StatsComponent extends React.Component<Props, LoadedState | Unloade
 	}
 	loadStats() {
 		const daysLeft = daysUntil(this.props.deadline);
-		let newState = _.clone(this.state) as LoadedState;
+		let newState = Object.assign({}, this.state) as LoadedState;
 		newState.loaded = true;
 		newState.comments = 432023;
 		newState.calls = 12003;

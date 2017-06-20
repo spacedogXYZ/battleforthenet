@@ -62,8 +62,12 @@ function getVideoPositions(props:Props, state:State): VideoPosition[] {
 	var s = Math.floor((l - state.visibleVideos) / 2);
 	var i = clamp(state.active - s, l);
 	var left = -s;
+
+    // TODO: I think this could be done with Array.map or Array.reduce instead, just 
+    // having trouble thinking through the logic right now. Would be better to avoid
+    // setting indices on a potentially sparse array too.
 	var ret: VideoPosition[] = [];
-	_.each(_.range(0, l), function(j) {
+	_.range(0, l).forEach(function(j) {
 		var idx = clamp(i + j, l);
 		var offset = left + j;
 		ret[idx] = {
@@ -121,13 +125,13 @@ export class VideoRollComponent extends React.Component<Props, State> {
 		if (d) {
 			if (d === 2) {
 				this.setState((prevState) => {
-					return _.defaults({
+					return Object.assign({
 						active: clamp(prevState.active + 1, this.props.videos.length)
 					}, prevState) as State;
 				});
 			} else if (d === 4) {
 				this.setState((prevState) => {
-					return _.defaults({
+					return Object.assign({
 						active: clamp(prevState.active - 1, this.props.videos.length)
 					}, prevState) as State;
 				});
@@ -138,7 +142,7 @@ export class VideoRollComponent extends React.Component<Props, State> {
 		evt.preventDefault();
 		evt.stopPropagation();
 		this.setState((prevState) => {
-			return _.defaults({
+			return Object.assign({
 				active: clamp(prevState.active - 1, this.props.videos.length)
 			}, prevState) as State;
 		});
@@ -147,19 +151,19 @@ export class VideoRollComponent extends React.Component<Props, State> {
 		evt.preventDefault();
 		evt.stopPropagation();
 		this.setState((prevState) => {
-			return _.defaults({
+			return Object.assign({
 				active: clamp(prevState.active + 1, this.props.videos.length)
 			}, prevState) as State;
 		});
 	}
 	closeModal(evt: Event): void {
 		this.setState((prevState) => {
-			return _.defaults({open: null}, prevState) as State;
+			return Object.assign({open: null}, prevState) as State;
 		});
 	}
 	setOpen(i: number): void {
 		this.setState((prevState) => {
-			return _.defaults({open: i}, prevState) as State;
+			return Object.assign({open: i}, prevState) as State;
 		});
 	}
 	renderControls(): JSX.Element {
@@ -220,7 +224,7 @@ export class VideoRollComponent extends React.Component<Props, State> {
 			<Hammer onSwipe={this.onSwipe.bind(this)}>
 				<div className="video-container">
 					<div className="video-scroller" style={{left: left}}>
-						{_.map(videoPositions, this.renderVideo.bind(this))}
+						{videoPositions.map(this.renderVideo.bind(this))}
 					</div>
 				</div>
 			</Hammer>

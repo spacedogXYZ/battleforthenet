@@ -3,7 +3,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as ReactTransitionGroup from 'react-transition-group';
-import * as _ from 'lodash';
 
 import {LoaderLogo} from './loader-logo';
 import {Modal} from './modal';

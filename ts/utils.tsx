@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import * as _ from 'lodash';
 import * as moment from 'moment';
 
 
@@ -34,16 +33,16 @@ export function mockAjaxPromise(result: any, timeout: number): Promise<ajaxResul
 
 
 function encodeObject(obj: {[key: string]: any}): string {
-	var pairs = _.map(obj, function(v, k) {
-		return encodeURIComponent(k as string) + '=' + encodeURIComponent(v as string);
+	var pairs = Object.keys(obj).map(function(k) {
+		return encodeURIComponent(k as string) + '=' + encodeURIComponent(obj[k] as string);
 	});
 	return pairs.join('&').replace(/%20/g, '+');
 };
 
 
 export function ajaxPromise(opts: any)  {
-	var cors = !_.isUndefined(opts.cors) ? opts.cors : true;
-	var json = !_.isUndefined(opts.json) ? opts.json : false;
+	var cors = (typeof opts.cors !== 'undefined') ? opts.cors : true;
+	var json = (typeof opts.json !== 'undefined') ? opts.json : false;
 	var spec: any = {
 		url: opts.url,
 		method: opts.method.toUpperCase()
@@ -97,7 +96,7 @@ export function clamp(v: number, l: number): number {
 
 
 export function classes(...c: (string|boolean|null)[]): string {
-	return _.filter(c).join(" ");
+	return c.filter((val: string|boolean|null) => { return val; }).join(" ");
 };
 
 
