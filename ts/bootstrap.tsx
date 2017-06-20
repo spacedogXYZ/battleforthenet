@@ -16,6 +16,8 @@ import {BFTNFormFlow} from './bftn-form-flow';
 import {mountComponent} from './utils';
 import {ExternalFlags} from './external-flags';
 import {GoogleAnalytics} from './google-analytics';
+import {Modal} from './modal';
+import {TwitterBrigade} from './twitter-brigade';
 
 declare var window: any;
 
@@ -34,3 +36,5 @@ window['BFTNFormFlow'] = BFTNFormFlow;
 window['mountComponent'] = mountComponent;
 window['ExternalFlags'] = ExternalFlags;
 window['GoogleAnalytics'] = GoogleAnalytics;
+window['Modal'] = Modal;
+window['TwitterBrigade'] = TwitterBrigade;

@@ -169,6 +169,8 @@
       <a href="#" class="btn">Send Letter</a>
     </div>
 
+    <div id="modal-container"></div>
+
     <!-- Senty Error Reporting -->
     <script src="https://cdn.ravenjs.com/3.15.0/raven.min.js"></script>
     <script type="text/javascript">
@@ -187,6 +189,15 @@
 
         var initialForm = externalFlags.hasFlag("call") ? "call" : "action";
         var persistentButtonText = externalFlags.hasFlag("call") ? "Call Congress" : "Send Letter";
+
+        if (externalFlags.hasFlag('twitter_modal')) {
+          mountComponent(
+            React.createElement(Modal, {
+              children: React.createElement(TwitterBrigade, {})
+            }),
+            document.getElementById('modal-container')
+          )
+        }
 
         mountComponent(
           React.createElement(BFTNFormFlow, {
