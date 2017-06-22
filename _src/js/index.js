@@ -84,7 +84,8 @@
       success: function(e) {
         new CallForm({
           target: '.form-wrapper',
-          template: e.target.responseText
+          template: e.target.responseText,
+          campaign: params.get('call').toLowerCase()
         });
       }
     });
