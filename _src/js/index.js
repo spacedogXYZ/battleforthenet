@@ -89,6 +89,22 @@
         });
       }
     });
+  } else if (document.body.classList.contains('day-of-action') && params.get('org') == 'dp') {
+    // Define success callback of action kit form to display the share modal
+    window.onWidgetSuccess = function(form, serverResponse) {
+      global.modals.display('thanks_modal');
+    }
+
+    new AJAX({
+      url: '/templates/SignupFormDP.html' + buster,
+      success: function(e) {
+        new PetitionForm({
+          target: '.form-wrapper',
+          template: e.target.responseText
+        });
+        loadJS('/js/actionkit_widget.js');
+      }
+    });
   } else if (document.body.classList.contains('day-of-action')) {
     new AJAX({
       url: '/templates/SignupForm.html' + buster,
@@ -152,7 +168,7 @@
       if (location.href.match(/sharing_modal=1/)) {
         global.modals.display('call_modal');
       } else if (location.href.match(/twitter_modal=1/)) {
-        global.modals.display('twitter_modal'); 
+        global.modals.display('twitter_modal');
       }
     }
   });
